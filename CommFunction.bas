@@ -1,9 +1,9 @@
-Attribute VB_Name = "Í¨ÓÃº¯Êı"
+Attribute VB_Name = "é€šç”¨å‡½æ•°"
 '@venjet
 'ver data 2017-8-24
-Private Declare PtrSafe Function timeGetTime Lib "winmm.dll" () As Long '¸ÃÉùÃ÷µÃµ½ÏµÍ³¿ª»úµ½ÏÖÔÚµÄÊ±¼ä(µ¥Î»£ººÁÃë)
+Private Declare PtrSafe Function timeGetTime Lib "winmm.dll" () As Long 'è¯¥å£°æ˜å¾—åˆ°ç³»ç»Ÿå¼€æœºåˆ°ç°åœ¨çš„æ—¶é—´(å•ä½ï¼šæ¯«ç§’)
 Option Base 1
-'·µ»ØËæ»ú¼ÓÈ¨¸ÅÂÊÊı×éµÄµ¥´Î½á¹û
+'è¿”å›éšæœºåŠ æƒæ¦‚ç‡æ•°ç»„çš„å•æ¬¡ç»“æœ
 Function probArrayCal(ByRef tagArray As Variant)
     Dim arrSum
     For Each element In tagArray
@@ -21,7 +21,7 @@ Function probArrayCal(ByRef tagArray As Variant)
         End If
     Next
 End Function
-'ÊäÈëËæ»úÊıÓë¾«¶È£¨¿ÉÑ¡£©£¬·µ»ØÊÇ·ñÃüÖĞ
+'è¾“å…¥éšæœºæ•°ä¸ç²¾åº¦ï¼ˆå¯é€‰ï¼‰ï¼Œè¿”å›æ˜¯å¦å‘½ä¸­
 Function probNumCal(randNum, Optional accuracy = 1000) As Boolean
     If randNum >= Int(1 + Rnd * accuracy) Then
         probNumCal = True
@@ -30,19 +30,19 @@ Function probNumCal(randNum, Optional accuracy = 1000) As Boolean
     End If
 End Function
 
-'ÊäÈë»ù´¡¸ÅÂÊ¡¢µş¼Ó¸ÅÂÊ¡¢±£µ×´ÎÊı£¨¿ÉÑ¡£¬Ä¬ÈÏÎŞ£©,ÏŞ¶¨´ÎÊı£¨¿ÉÑ¡£¬Ä¬ÈÏÎŞ£©,ãĞÖµ£¨¿ÉÑ¡£¬Ä¬ÈÏ10000£©¼°¾«¶È£¨¿ÉÑ¡£¬Ä¬ÈÏÍò£©£¬·µ»ØÊµ¼Ê¸ÅÂÊ
+'è¾“å…¥åŸºç¡€æ¦‚ç‡ã€å åŠ æ¦‚ç‡ã€ä¿åº•æ¬¡æ•°ï¼ˆå¯é€‰ï¼Œé»˜è®¤æ— ï¼‰,é™å®šæ¬¡æ•°ï¼ˆå¯é€‰ï¼Œé»˜è®¤æ— ï¼‰,é˜ˆå€¼ï¼ˆå¯é€‰ï¼Œé»˜è®¤10000ï¼‰åŠç²¾åº¦ï¼ˆå¯é€‰ï¼Œé»˜è®¤ä¸‡ï¼‰ï¼Œè¿”å›å®é™…æ¦‚ç‡
 Function randProb(baseProb, addProb, Optional maxNum = 0, Optional minNum = 0, Optional threshold = 10000, Optional accuracy = 10000)
     Dim hitArr()
     Dim missArr()
     Dim probArr()
     
-    '´¦Àí´øÓĞãĞÖµµÄÎ±Ëæ»ú
+    'å¤„ç†å¸¦æœ‰é˜ˆå€¼çš„ä¼ªéšæœº
     If threshold / accuracy < 1 Then
         baseProb = threshold
         addProb = 0
     End If
     
-    '¸÷ÖÖÎª0µÄÇé¿ö
+    'å„ç§ä¸º0çš„æƒ…å†µ
     If baseProb + addProb + maxNum = 0 Then
         randProb = 0
         Exit Function
@@ -90,16 +90,16 @@ Function randProb(baseProb, addProb, Optional maxNum = 0, Optional minNum = 0, O
     
 End Function
 
-'Ê¹½ø³ÌË¯ÃßTºÁÃë
+'ä½¿è¿›ç¨‹ç¡çœ Tæ¯«ç§’
 Public Function SleepToo(T As Long)
     Dim Savetime As Long
-    Savetime = timeGetTime '¼ÇÏÂ¿ªÊ¼Ê±µÄÊ±¼ä
-    While timeGetTime < Savetime + T 'Ñ­»·µÈ´ı
-        DoEvents '×ªÈÃ¿ØÖÆÈ¨
+    Savetime = timeGetTime 'è®°ä¸‹å¼€å§‹æ—¶çš„æ—¶é—´
+    While timeGetTime < Savetime + T 'å¾ªç¯ç­‰å¾…
+        DoEvents 'è½¬è®©æ§åˆ¶æƒ
     Wend
 End Function
 
-'½«´«ÈëµÄÊı×éÂÒĞò
+'å°†ä¼ å…¥çš„æ•°ç»„ä¹±åº
 Sub randArray(ByRef tagArray As Variant)
     upbound = UBound(tagArray)
     For i = 1 To upbound
@@ -110,7 +110,7 @@ Sub randArray(ByRef tagArray As Variant)
     Next i
 End Sub
 
-'·µ»Ø¸ø¶¨Çø¼äµÄÈ¥ÖØËæ»úÊı×é£¬³¤¶È¿ÉÖ¸¶¨£¬Ä¬ÈÏÎªËùÓĞÊı×Ö¡£
+'è¿”å›ç»™å®šåŒºé—´çš„å»é‡éšæœºæ•°ç»„ï¼Œé•¿åº¦å¯æŒ‡å®šï¼Œé»˜è®¤ä¸ºæ‰€æœ‰æ•°å­—ã€‚
 Function v_RandBetween(min As Integer, max As Integer, Optional length = 0)
 
     Count = max - min + 1
@@ -140,7 +140,7 @@ Function v_RandBetween(min As Integer, max As Integer, Optional length = 0)
 
 End Function
 
-'½«¶şÎ¬Êı×éµÄÎÄ±¾×ª»»Îª¶şÎ¬Êı×é
+'å°†äºŒç»´æ•°ç»„çš„æ–‡æœ¬è½¬æ¢ä¸ºäºŒç»´æ•°ç»„
 Sub transStrToDoubleArray(ByVal containStr As String, ByRef Arr())
     On Error GoTo Err_Handle
     ReDim Preserve Arr(1 To 1, 1 To 4)
@@ -150,10 +150,10 @@ Sub transStrToDoubleArray(ByVal containStr As String, ByRef Arr())
     containStr = Replace(containStr, "],[", ";")
   
     
-    'EvaluateÕâ¸öÆÆº¯ÊıµÄ×Ö·ûÊıÓĞÏŞÖÆ£¬²»ÄÜ³¬255
-    'Update:ÌıËµ2010ÒÔºóÃ»ÕâÏŞÖÆÁË£¬¿ª·ÅÒ»ÏÂÊÔÊÔ
+    'Evaluateè¿™ä¸ªç ´å‡½æ•°çš„å­—ç¬¦æ•°æœ‰é™åˆ¶ï¼Œä¸èƒ½è¶…255
+    'Update:å¬è¯´2010ä»¥åæ²¡è¿™é™åˆ¶äº†ï¼Œå¼€æ”¾ä¸€ä¸‹è¯•è¯•
     'If Len(containStr) > 255 Then
-    '    Debug.Print ("³¬¹ı255¸ö×Ö·û£¬Evaluateº¯ÊıÎŞ·¨×ª»»¡£")
+    '    Debug.Print ("è¶…è¿‡255ä¸ªå­—ç¬¦ï¼ŒEvaluateå‡½æ•°æ— æ³•è½¬æ¢ã€‚")
     'End If
     
     Arr = Application.Evaluate(containStr)
@@ -171,7 +171,7 @@ Err_Handle:
     Arr = Null
 End Sub
 
-'´«Èë¶şÎ¬Êı×éÎÄ±¾£¬¸ù¾İË÷ÒıÖµ·µ»Ø¶ÔÓ¦ÊıÖµ
+'ä¼ å…¥äºŒç»´æ•°ç»„æ–‡æœ¬ï¼Œæ ¹æ®ç´¢å¼•å€¼è¿”å›å¯¹åº”æ•°å€¼
 Function v_GetDArrayValue(containStr As String, COl As Integer, row As Integer)
     On Error GoTo Err_Handle
     Dim Arr()
@@ -182,7 +182,7 @@ Err_Handle:
     v_GetDArrayValue = ""
 End Function
 
-'´«Èë¶şÎ¬Êı×éÎÄ±¾£¬¸ù¾İË÷ÒıÖµ·µ»Ø¶ÔÓ¦ÁĞµÄÒ»Î¬Êı×éÎÄ±¾
+'ä¼ å…¥äºŒç»´æ•°ç»„æ–‡æœ¬ï¼Œæ ¹æ®ç´¢å¼•å€¼è¿”å›å¯¹åº”åˆ—çš„ä¸€ç»´æ•°ç»„æ–‡æœ¬
 Function v_GetDArrayCol(containStr As String, COl As Integer)
     On Error GoTo Err_Handle
     Dim Arr()
@@ -198,7 +198,7 @@ Err_Handle:
     v_GetDArrayCol = ""
 End Function
 
-'´«Èë¶şÎ¬Êı×éÎÄ±¾£¬¸ù¾İË÷ÒıÖµ·µ»Ø¶ÔÓ¦ĞĞµÄÒ»Î¬Êı×éÎÄ±¾
+'ä¼ å…¥äºŒç»´æ•°ç»„æ–‡æœ¬ï¼Œæ ¹æ®ç´¢å¼•å€¼è¿”å›å¯¹åº”è¡Œçš„ä¸€ç»´æ•°ç»„æ–‡æœ¬
 Function v_GetDArrayRow(containStr As String, row As Integer)
     On Error GoTo Err_Handle
     Dim Arr()
@@ -214,7 +214,7 @@ Err_Handle:
     v_GetDArrayRow = ""
 End Function
 
-'½«Ò»Î¬Êı×éµÄÎÄ±¾×ª»»ÎªÒ»Î¬Êı×é
+'å°†ä¸€ç»´æ•°ç»„çš„æ–‡æœ¬è½¬æ¢ä¸ºä¸€ç»´æ•°ç»„
 Sub transStrToSingleArray(ByVal containStr As String, ByRef Arr)
     On Error GoTo Err_Handle
     'ReDim Preserve arr(1 To 1, 1 To 4)
@@ -229,7 +229,7 @@ Err_Handle:
     Arr = Null
 End Sub
 
-'´«ÈëÒ»Î¬Êı×éÎÄ±¾£¬¸ù¾İË÷ÒıÖµ·µ»Ø¶ÔÓ¦ÊıÖµ
+'ä¼ å…¥ä¸€ç»´æ•°ç»„æ–‡æœ¬ï¼Œæ ¹æ®ç´¢å¼•å€¼è¿”å›å¯¹åº”æ•°å€¼
 Function v_GetSArrayValue(containStr As String, COl As Integer)
     On Error GoTo Err_Handle
     Dim Arr As Variant
@@ -240,7 +240,7 @@ Err_Handle:
     v_GetSArrayValue = ""
 End Function
 
-'½«Ä³ÁĞÊı¾İ½øĞĞ³Ë·¨¼°¼Ó·¨È¡Õûºó£¬×ª»»ÎªÒ»Î¬Êı×éÎÄ±¾ĞÎÊ½(Ä¬ÈÏ³Ë1¼Ó0)
+'å°†æŸåˆ—æ•°æ®è¿›è¡Œä¹˜æ³•åŠåŠ æ³•å–æ•´åï¼Œè½¬æ¢ä¸ºä¸€ç»´æ•°ç»„æ–‡æœ¬å½¢å¼(é»˜è®¤ä¹˜1åŠ 0)
 Function v_ColToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Optional isRound = 0)
     Dim Arr
     Arr = Application.Transpose(rangeArr)
@@ -258,7 +258,7 @@ Function v_ColToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Option
     v_ColToArrStr = "[" & Join(Arr, ",") & "]"
 End Function
 
-'½«Ä³ĞĞÊı¾İ½øĞĞ³Ë·¨¼°¼Ó·¨ºó£¬×ª»»ÎªÒ»Î¬Êı×éÎÄ±¾ĞÎÊ½
+'å°†æŸè¡Œæ•°æ®è¿›è¡Œä¹˜æ³•åŠåŠ æ³•åï¼Œè½¬æ¢ä¸ºä¸€ç»´æ•°ç»„æ–‡æœ¬å½¢å¼
 Function v_RowToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Optional isRound = 0)
     Dim Arr
     Arr = Application.Transpose(Application.Transpose(rangeArr))
@@ -276,7 +276,7 @@ Function v_RowToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Option
     v_RowToArrStr = "[" & Join(Arr, ",") & "]"
 End Function
 
-'ÊäÈë¼ÛÖµ¡¢ÊıÁ¿¡¢¸ÅÂÊÊı×é£¬·µ»Ø×Ü¼ÛÖµ
+'è¾“å…¥ä»·å€¼ã€æ•°é‡ã€æ¦‚ç‡æ•°ç»„ï¼Œè¿”å›æ€»ä»·å€¼
 Function v_valueArrSum(valueArrStr, numArrStr, probArrStr)
     On Error GoTo Err_Handle
     Dim valueArr As Variant
@@ -295,7 +295,7 @@ Err_Handle:
 End Function
 
 
-'ÊäÈëÒ»Î¬Êı×éÎÄ±¾£¬·µ»Ø×ÜÖµ
+'è¾“å…¥ä¸€ç»´æ•°ç»„æ–‡æœ¬ï¼Œè¿”å›æ€»å€¼
 Function v_sArrSum(valueArrStr)
     On Error GoTo Err_Handle
     Dim valueArr As Variant
@@ -310,7 +310,7 @@ Err_Handle:
     v_sArrSum = 0
 End Function
 
-'ÊäÈë»ù´¡Öµ£¬³¤¶È£¬µÈ²îÖµ£¨Ä¬ÈÏ0£©£¬µÈ±ÈÖµ£¨Ä¬ÈÏ1£©£¬·µ»ØµÈ²îµÈ±ÈÊı×éÎÄ±¾
+'è¾“å…¥åŸºç¡€å€¼ï¼Œé•¿åº¦ï¼Œç­‰å·®å€¼ï¼ˆé»˜è®¤0ï¼‰ï¼Œç­‰æ¯”å€¼ï¼ˆé»˜è®¤1ï¼‰ï¼Œè¿”å›ç­‰å·®ç­‰æ¯”æ•°ç»„æ–‡æœ¬
 Function v_AriGeoArray(base, length, Optional ari = 0, Optional geo = 1)
     For i = 0 To length - 1
         v_AriGeoArray = v_AriGeoArray & "," & (base + base * (geo - 1) * i + ari * i)
@@ -323,7 +323,7 @@ Function v_AriGeoArray(base, length, Optional ari = 0, Optional geo = 1)
 End Function
 
 
-'·µ»ØÄ³ÁĞÊı¾İµÄÆ½·½Æ½¾ùÊı
+'è¿”å›æŸåˆ—æ•°æ®çš„å¹³æ–¹å¹³å‡æ•°
 Function v_ColRMSquare(rangeArr As Range)
     Dim Arr
     Arr = Application.Transpose(rangeArr)
@@ -332,7 +332,7 @@ Function v_ColRMSquare(rangeArr As Range)
     Next
     v_ColRMSquare = (arrSum / UBound(Arr)) ^ 0.5
 End Function
-'·µ»ØÄ³ĞĞÊı¾İµÄÆ½·½Æ½¾ùÊı
+'è¿”å›æŸè¡Œæ•°æ®çš„å¹³æ–¹å¹³å‡æ•°
 Function v_RowRMSquare(rangeArr As Range)
     Dim Arr
     Arr = Application.Transpose(Application.Transpose(rangeArr))
@@ -342,7 +342,7 @@ Function v_RowRMSquare(rangeArr As Range)
     v_RowRMSquare = (arrSum / UBound(Arr)) ^ 0.5
 End Function
 
-'ÊäÈëA,BÁ½¸öÊı×éÎÄ±¾£¬È·¶¨AÊÇ·ñÎªBÊı×éµÄ×Ó¼¯
+'è¾“å…¥A,Bä¸¤ä¸ªæ•°ç»„æ–‡æœ¬ï¼Œç¡®å®šAæ˜¯å¦ä¸ºBæ•°ç»„çš„å­é›†
 Function v_isSubArr(childStr As String, fatherStr As String)
     
     If Len(childStr) = 0 Then
@@ -373,12 +373,12 @@ Function v_isSubArr(childStr As String, fatherStr As String)
 End Function
 
 '@venjet
-'ÊäÈëÊı×Ö£¬±£ÁôÇ°¼¸Î»£¨¿ÉÑ¡£¬Ä¬ÈÏ2Î»£©£¬¶àÉÙÒÔÏÂÖ±½ÓÈ¡Õû£¨¿ÉÑ¡£¬Ä¬ÈÏ100£©
+'è¾“å…¥æ•°å­—ï¼Œä¿ç•™å‰å‡ ä½ï¼ˆå¯é€‰ï¼Œé»˜è®¤2ä½ï¼‰ï¼Œå¤šå°‘ä»¥ä¸‹ç›´æ¥å–æ•´ï¼ˆå¯é€‰ï¼Œé»˜è®¤100ï¼‰
 Function v_cutNum(beCut, Optional retainNum = 99, Optional precision = 100)
 
     beCut = Int(beCut)
 
-    'Î²²¿´¦Àí
+    'å°¾éƒ¨å¤„ç†
     If beCut < precision Then
         precision = 10 ^ Int(Len(beCut) - 1)
         v_cutNum = beCut
@@ -386,25 +386,25 @@ Function v_cutNum(beCut, Optional retainNum = 99, Optional precision = 100)
         v_cutNum = Application.Round(beCut / precision, 0) * precision
     End If
     
-    'Í·²¿´¦Àí
-    headNum = Int(Mid(v_cutNum, 1, retainNum)) '´ÓÍ·¿ªÊ¼½ØÈ¡µÄÊı×Ö
-    digitsNum = Application.max(0, Int(Len(v_cutNum) - retainNum)) 'Ê£ÓàµÄÎ»Êı
+    'å¤´éƒ¨å¤„ç†
+    headNum = Int(Mid(v_cutNum, 1, retainNum)) 'ä»å¤´å¼€å§‹æˆªå–çš„æ•°å­—
+    digitsNum = Application.max(0, Int(Len(v_cutNum) - retainNum)) 'å‰©ä½™çš„ä½æ•°
    
     v_cutNum = headNum * 10 ^ digitsNum
     
 End Function
 
-'½«unix Ê±¼ä´Á×ª»»ÎªÊ±¼ä£¬×¢ÒâÒª½«µ¥Ôª¸ñ¸ñÊ½¸ÄÎªÈÕÆÚ»òÊ±¼ä
+'å°†unix æ—¶é—´æˆ³è½¬æ¢ä¸ºæ—¶é—´ï¼Œæ³¨æ„è¦å°†å•å…ƒæ ¼æ ¼å¼æ”¹ä¸ºæ—¥æœŸæˆ–æ—¶é—´
 Function v_stampToTime(stamp)
     v_stampToTime = (stamp + 8 * 3600) / 86400 + 70 * 365 + 19
 End Function
 
 
-'¼òµ¥Ğ´Ğ´µÄJson¸ñÊ½½âÎöº¯Êı£¬´Õ»î¹»ÓÃ
-'Ôİ²»Ö§³ÖÊı×évalue£¬Ôİ²»Ö§³ÖJsonÇ¶Ì×
+'ç®€å•å†™å†™çš„Jsonæ ¼å¼è§£æå‡½æ•°ï¼Œå‡‘æ´»å¤Ÿç”¨
+'æš‚ä¸æ”¯æŒæ•°ç»„valueï¼Œæš‚ä¸æ”¯æŒJsonåµŒå¥—
 '@venjet
-'ÊäÈë  jsonStr:´ı½âÎöµÄJsonÓï¾ä£»key:Ğè²éÕÒµÄkeyÖµ
-'Êä³ö  ¶ÔÓ¦µÄvalue
+'è¾“å…¥  jsonStr:å¾…è§£æçš„Jsonè¯­å¥ï¼›key:éœ€æŸ¥æ‰¾çš„keyå€¼
+'è¾“å‡º  å¯¹åº”çš„value
 Function v_getJsonValue(jsonStr As String, key As String)
     On Error GoTo Err_Handle
         starNum = Application.Find(key, jsonStr) + Len(key) + 1
@@ -416,7 +416,7 @@ Err_Handle:
 End Function
 
 
-'»ñÈ¡Ä³¸öÊı×éµÄÎ¬¶È
+'è·å–æŸä¸ªæ•°ç»„çš„ç»´åº¦
 Function v_getArrarDimensions(Arr)
 
       On Error GoTo FinalDimension
@@ -435,15 +435,15 @@ FinalDimension:
         
 End Function
 
-'vbaÉµ±Æ²¹¶¡µÚÒ»µ¯
-'vbaµÄ°×³ÕTransposeº¯Êı²»ÖªµÀÎªÊ²Ã´²»Ö§³Öµ¥¸ñ³¬256¸ö×Ö·û
-'Ã»°ì·¨Ö»ºÃ×Ô¼ºĞ´Ò»¸öÁË£¬¼òÖ±ÁË
-'Ä¿Ç°×î¶àÖ§³Öµ½¶şÎ¬...»°Ëµ±¾À´ºÃÏñÒ²¾Íµ½¶şÎ¬°É
-'ÁíÍâÊı×é´Ó1¿ªÊ¼£¬ÉèÖÃÁË´ÓÁã¿ªÊ¼µÄ»°»á¶ªÊı¾İÅ¶
+'vbaå‚»é€¼è¡¥ä¸ç¬¬ä¸€å¼¹
+'vbaçš„ç™½ç—´Transposeå‡½æ•°ä¸çŸ¥é“ä¸ºä»€ä¹ˆä¸æ”¯æŒå•æ ¼è¶…256ä¸ªå­—ç¬¦
+'æ²¡åŠæ³•åªå¥½è‡ªå·±å†™ä¸€ä¸ªäº†ï¼Œç®€ç›´äº†
+'ç›®å‰æœ€å¤šæ”¯æŒåˆ°äºŒç»´...è¯è¯´æœ¬æ¥å¥½åƒä¹Ÿå°±åˆ°äºŒç»´å§
+'å¦å¤–æ•°ç»„ä»1å¼€å§‹ï¼Œè®¾ç½®äº†ä»é›¶å¼€å§‹çš„è¯ä¼šä¸¢æ•°æ®å“¦
 Sub v_transpose(ByRef Arr)
     Dim newArr
     arrD = v_getArrarDimensions(Arr)
-    On Error GoTo Err_Handle 'ÕâÀïÊÇÓÃÀ´´¦Àíµ¥Ò»³¤¶ÈÊı×éµÄÁÙÊ±·½°¸£¬µÈÍâ²¿´¦ÀíÍêÁËÒªÉ¾µô¡£
+    On Error GoTo Err_Handle 'è¿™é‡Œæ˜¯ç”¨æ¥å¤„ç†å•ä¸€é•¿åº¦æ•°ç»„çš„ä¸´æ—¶æ–¹æ¡ˆï¼Œç­‰å¤–éƒ¨å¤„ç†å®Œäº†è¦åˆ æ‰ã€‚
     arrX = UBound(Arr)
     arrY = UBound(Arr, arrD)
     If arrD = 1 Then
@@ -469,13 +469,13 @@ Sub v_transpose(ByRef Arr)
     Arr = newArr
     Exit Sub
 Err_Handle:
-    'Debug.Print ("v_transpose Error")  ÆäÊµÒ²²»ÄÜËã´í...ÏÈ×¢ÁË°É
+    'Debug.Print ("v_transpose Error")  å…¶å®ä¹Ÿä¸èƒ½ç®—é”™...å…ˆæ³¨äº†å§
     ReDim newArr(1)
     newArr(1) = Arr
     Arr = newArr
 End Sub
 
-'É¾³ıÒ»¸öÊı×éÖĞµÄÄ³Ò»ĞĞ»òÄ³Ò»ÁĞÊı¾İ
+'åˆ é™¤ä¸€ä¸ªæ•°ç»„ä¸­çš„æŸä¸€è¡Œæˆ–æŸä¸€åˆ—æ•°æ®
 Function v_DelLineOrCol(Arr As Variant, Optional delLine As Long, Optional delCol As Long)
     Dim Line As Long
     Dim lstLine As Long
@@ -485,7 +485,7 @@ Function v_DelLineOrCol(Arr As Variant, Optional delLine As Long, Optional delCo
     Dim Tmp  As Boolean
     lstLine = UBound(Arr, 1)
     lstCol = UBound(Arr, 2)
-    '¶ÔĞĞ½øĞĞ´¦Àí
+    'å¯¹è¡Œè¿›è¡Œå¤„ç†
     If delLine > 0 Then
         ReDim arrNew(1 To lstLine - 1, 1 To lstCol)
         For Line = 1 To lstLine
@@ -500,7 +500,7 @@ Function v_DelLineOrCol(Arr As Variant, Optional delLine As Long, Optional delCo
         Del_LineOrCol = arrNew
         Exit Function
     End If
-    '¶ÔÁĞ½øĞĞ´¦Àí
+    'å¯¹åˆ—è¿›è¡Œå¤„ç†
     If delCol > 0 Then
         ReDim arrNew(1 To lstLine, 1 To lstCol - 1)
         For COl = 1 To lstCol
@@ -516,15 +516,15 @@ Function v_DelLineOrCol(Arr As Variant, Optional delLine As Long, Optional delCo
     End If
 End Function
 
-'vbaÉµ±Æ²¹¶¡µÚ¶şµ¯
-'ÓÃÒÔ½â¾öfilter¾ÓÈ»²»´ø¾«È·Æ¥ÅäµÄÎÊÌâ
-'·µ»ØÖµºÍÔ­À´µÄfilterÒ»Ñù£¬µ«ÊÇÖ»ÄÜ·µ»Ø°üº¬µÄÊı×é£¬¶àÁË¸öÑ¡Ïî¾ö¶¨ÊÇ·ñ¾«È·Æ¥Åä
-'ÖµµÃ×¢ÒâµÄÊÇ£¬ÎŞÂÛ Option BaseÔõÃ´ÉèÖÃ£¬Êı×éË÷ÒıÖµ¶¼ÊÇ´Ó0¿ªÊ¼£¨Òª¹Ö¾Í¹Ösplitº¯Êı...£©
+'vbaå‚»é€¼è¡¥ä¸ç¬¬äºŒå¼¹
+'ç”¨ä»¥è§£å†³filterå±…ç„¶ä¸å¸¦ç²¾ç¡®åŒ¹é…çš„é—®é¢˜
+'è¿”å›å€¼å’ŒåŸæ¥çš„filterä¸€æ ·ï¼Œä½†æ˜¯åªèƒ½è¿”å›åŒ…å«çš„æ•°ç»„ï¼Œå¤šäº†ä¸ªé€‰é¡¹å†³å®šæ˜¯å¦ç²¾ç¡®åŒ¹é…
+'å€¼å¾—æ³¨æ„çš„æ˜¯ï¼Œæ— è®º Option Baseæ€ä¹ˆè®¾ç½®ï¼Œæ•°ç»„ç´¢å¼•å€¼éƒ½æ˜¯ä»0å¼€å§‹ï¼ˆè¦æ€ªå°±æ€ªsplitå‡½æ•°...ï¼‰
 Function v_Filter(myArray, myMatch, Optional isExactly = 1)
-    'myMarkerºÍmyDelimiter±ØĞëÊÇ×Ö·û
-    'ÇÒ¸Ã×Ö·û²»»á³öÏÖÔÚÊı×éµÄÈÎºÎÔªËØÖĞ!
-    Const myMarker As String = "¡á"
-    Const myDelimiter As String = "¡â"
+    'myMarkerå’ŒmyDelimiterå¿…é¡»æ˜¯å­—ç¬¦
+    'ä¸”è¯¥å­—ç¬¦ä¸ä¼šå‡ºç°åœ¨æ•°ç»„çš„ä»»ä½•å…ƒç´ ä¸­!
+    Const myMarker As String = "â™‚"
+    Const myDelimiter As String = "â™€"
     Dim mySearchArray As Variant
     Dim myFilteredArray As Variant
     
@@ -532,21 +532,21 @@ Function v_Filter(myArray, myMatch, Optional isExactly = 1)
  
     If UBound(myFilteredArray) > -1 And isExactly = 1 Then
     
-        '±ê¼ÇÃ¿¸öÕÒµ½µÄÔªËØµÄ¿ªÊ¼ºÍ½áÊø
+        'æ ‡è®°æ¯ä¸ªæ‰¾åˆ°çš„å…ƒç´ çš„å¼€å§‹å’Œç»“æŸ
         mySearchArray = Split(myMarker & Join(myFilteredArray, myMarker & myDelimiter & myMarker) & myMarker, myDelimiter)
-        'ÏÂÃæÉ¸Ñ¡ĞŞ¸ÄºóµÄÊı×é
+        'ä¸‹é¢ç­›é€‰ä¿®æ”¹åçš„æ•°ç»„
         myFilteredArray = Filter(mySearchArray, myMarker & myMatch & myMarker)
-        '´Ó½á¹ûÖĞÒÆ³ı±ê¼Ç
+        'ä»ç»“æœä¸­ç§»é™¤æ ‡è®°
         myFilteredArray = Split(Replace(Join(myFilteredArray, myDelimiter), myMarker, ""), myDelimiter)
     End If
     v_Filter = myFilteredArray
     
 End Function
 
-'½«¶şÎ¬Êı×éµÄÄ³Ò»ĞĞ¸³Öµ¸øÒ»Î¬Êı×é
-'Í¨¹ı½áºÏv_transposeº¯ÊıÓ¦¸ÃÄÜ½«ÁĞÒ²½øĞĞ¸³Öµ£¬ËäÈ»Ó¦¸Ã²»Ì«³£ÓÃ
+'å°†äºŒç»´æ•°ç»„çš„æŸä¸€è¡Œèµ‹å€¼ç»™ä¸€ç»´æ•°ç»„
+'é€šè¿‡ç»“åˆv_transposeå‡½æ•°åº”è¯¥èƒ½å°†åˆ—ä¹Ÿè¿›è¡Œèµ‹å€¼ï¼Œè™½ç„¶åº”è¯¥ä¸å¤ªå¸¸ç”¨
 Sub v_getDoubleArrayRow(ByRef sArr, dArr, rowNum)
-'ÓÃ´íÎó´¦ÀíÀ´½â¾öindexº¯ÊıµÄÏŞÖÆ£¬Ç¿ĞĞĞ´Ñ­»·
+'ç”¨é”™è¯¯å¤„ç†æ¥è§£å†³indexå‡½æ•°çš„é™åˆ¶ï¼Œå¼ºè¡Œå†™å¾ªç¯
 On Error GoTo loopJump
     sArr = WorksheetFunction.index(dArr, rowNum, 0)
     Exit Sub
@@ -559,8 +559,8 @@ End Sub
 
 
 
-'»ñÈ¡Ä³¸öÄÚÈİÔÚÄ³ÁĞ£¨Ä¬ÈÏBÁĞ£©µÄĞĞºÅ
-'Ò»¾ä»°º¯ÊıÏµÁĞ= =
+'è·å–æŸä¸ªå†…å®¹åœ¨æŸåˆ—ï¼ˆé»˜è®¤Båˆ—ï¼‰çš„è¡Œå·
+'ä¸€å¥è¯å‡½æ•°ç³»åˆ—= =
 '@venjet
 Function getContentRow(content, Optional COl = "B:B")
     On Error GoTo Err_Handle
@@ -568,11 +568,11 @@ Function getContentRow(content, Optional COl = "B:B")
         Exit Function
 Err_Handle:
         getContentRow = 0
-        'MsgBox ("getContentRowÎ´ÄÜÕÒµ½¶ÔÓ¦ÄÚÈİ")
+        'MsgBox ("getContentRowæœªèƒ½æ‰¾åˆ°å¯¹åº”å†…å®¹")
 End Function
 
 
-'×÷ÓÃÈçº¯ÊıÃû£¬ÅĞ¶ÏÄ³¸öÂ·¾¶ÊÇ·ñ´æÔÚ
+'ä½œç”¨å¦‚å‡½æ•°åï¼Œåˆ¤æ–­æŸä¸ªè·¯å¾„æ˜¯å¦å­˜åœ¨
 Public Function FileFolderExists(strFullPath As String) As Boolean
 
     On Error GoTo EarlyExit
@@ -583,8 +583,8 @@ EarlyExit:
 
 End Function
 
-'¸ù¾İ¸ø¶¨µÄÂ·¾¶ºÍÎÄ¼şÃûµ¼ÈëCSV
-'×¢Òâ£º±ØĞëÊÇ¶ººÅ·Ö¸ô
+'æ ¹æ®ç»™å®šçš„è·¯å¾„å’Œæ–‡ä»¶åå¯¼å…¥CSV
+'æ³¨æ„ï¼šå¿…é¡»æ˜¯é€—å·åˆ†éš”
 '@venjet
 Sub inputCSV(path As String, name As String)
     With ActiveSheet.QueryTables.Add(Connection:="TEXT;" & path & name & ".csv", Destination:=Range("$A$1"))
