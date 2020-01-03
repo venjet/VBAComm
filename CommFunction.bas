@@ -100,7 +100,7 @@ End Function
 '      0.4     1
 '输出：全部命中的期望次数。
 
-Function v_expectTimes(probRange As range, numRange As range)
+Function v_expectTimes(probRange As Range, numRange As Range)
     Dim probArr()
     Dim numArr()
     
@@ -209,9 +209,9 @@ Sub randArray(ByRef tagArray As Variant)
     upbound = UBound(tagArray)
     For i = 1 To upbound
        randNum = Int(upbound * Rnd) + 1
-       Temp = tagArray(i)
+       temp = tagArray(i)
        tagArray(i) = tagArray(randNum)
-       tagArray(randNum) = Temp
+       tagArray(randNum) = temp
     Next i
 End Sub
 
@@ -346,7 +346,7 @@ Err_Handle:
 End Function
 
 '将某列数据进行乘法及加法取整后，转换为一维数组文本形式(默认乘1加0)
-Function v_ColToArrStr(rangeArr As range, Optional a = 1, Optional b = 0, Optional isRound = 0)
+Function v_ColToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Optional isRound = 0)
     Dim Arr
     Arr = Application.Transpose(rangeArr)
     If a = 1 And b = 0 And isRound = 0 Then
@@ -364,7 +364,7 @@ Function v_ColToArrStr(rangeArr As range, Optional a = 1, Optional b = 0, Option
 End Function
 
 '将某行数据进行乘法及加法后，转换为一维数组文本形式
-Function v_RowToArrStr(rangeArr As range, Optional a = 1, Optional b = 0, Optional isRound = 0)
+Function v_RowToArrStr(rangeArr As Range, Optional a = 1, Optional b = 0, Optional isRound = 0)
     Dim Arr
     Arr = Application.Transpose(Application.Transpose(rangeArr))
     If a = 1 And b = 0 And isRound = 0 Then
@@ -432,7 +432,7 @@ End Function
 
 
 '返回某列数据的平方平均数
-Function v_ColRMSquare(rangeArr As range)
+Function v_ColRMSquare(rangeArr As Range)
     Dim Arr
     Arr = Application.Transpose(rangeArr)
     For i = 1 To UBound(Arr)
@@ -441,7 +441,7 @@ Function v_ColRMSquare(rangeArr As range)
     v_ColRMSquare = (arrSum / UBound(Arr)) ^ 0.5
 End Function
 '返回某行数据的平方平均数
-Function v_RowRMSquare(rangeArr As range)
+Function v_RowRMSquare(rangeArr As Range)
     Dim Arr
     Arr = Application.Transpose(Application.Transpose(rangeArr))
     For i = 1 To UBound(Arr)
@@ -626,20 +626,17 @@ loopJump:
     Next i
 End Sub
 
-
-
 '获取某个内容在某列（默认B列）的行号
 '一句话函数系列= =
 '@venjet
 Function getContentRow(content, Optional COl = "B:B")
     On Error GoTo Err_Handle
-        getContentRow = WorksheetFunction.Match(content, range(COl), 0)
+        getContentRow = WorksheetFunction.Match(content, Range(COl), 0)
         Exit Function
 Err_Handle:
         getContentRow = 0
         'MsgBox ("getContentRow未能找到对应内容")
 End Function
-
 
 '作用如函数名，判断某个路径是否存在
 Public Function FileFolderExists(strFullPath As String) As Boolean
@@ -652,11 +649,62 @@ EarlyExit:
 
 End Function
 
+'判断文件是否存在  比如"D:\学习资料\2019\三上悠亚.avi"
+Private Function FileExists(fname) As Boolean
+    Dim x As String
+    x = Dir(fname)
+    If x <> "" Then FileExists = True _
+        Else FileExists = False
+End Function
+
+'获取路径中的文件名
+Public Function FileNameOnly(pname) As String
+    Dim temp As Variant
+    temp = Split(pname, Application.PathSeparator)
+    FileNameOnly = temp(UBound(temp))
+End Function
+
+'判断工作簿中是否包含工作表
+Private Function SheetExists(sname) As Boolean
+    Dim x As Object
+    On Error Resume Next
+    Set x = ActiveWorkbook.Sheets(sname)
+    If Err = 0 Then SheetExists = True _
+        Else: SheetExists = False
+End Function
+
+'判断工作簿是否打开
+Private Function WorkbookIsOpen(wbname) As Boolean
+    Dim x As Workbook
+    On Error Resume Next
+    Set x = Workbooks(wbname)
+    If Err = 0 Then WorkbookIsOpen = True _
+        Else WorkbookIsOpen = False
+End Function
+
+'获取关闭的工作表中某个单元格的内容，因为是宏函数(?)，只可在vba过程中调用，不可在表格中直接返回值。
+'path-文件路径：D:\Config\  or  ThisWorkbook.path
+'file-文件命：item.xlsm...
+'sheet-表名：sheet2 or item...
+'ref-单元格索引：C3 or Cells(r,c).Address（这种形式可以用for循环获取某个区域的数据）
+Function getClosedSheetValue(path, file, sheet, ref)
+    Dim arg As String
+    'TODO：可以用已有的函数来精确判断文件是否存在
+    If Right(path, 1) <> "\" Then path = path & "\"
+    If Dir(path & file) = "" Then
+        GetValue = "File not Found"
+        Exit Function
+    End If
+    arg = "'" & path & "[" & file & "]" & sheet & "'!" & Range(ref).Range("A1").Address(, , xlR1C1)
+    getClosedSheetValue = ExecuteExcel4Macro(arg)
+End Function
+
+
 '根据给定的路径和文件名导入CSV
 '注意：必须是逗号分隔
 '@venjet
 Sub inputCSV(path As String, name As String)
-    With ActiveSheet.QueryTables.Add(Connection:="TEXT;" & path & name & ".csv", Destination:=range("$A$1"))
+    With ActiveSheet.QueryTables.Add(Connection:="TEXT;" & path & name & ".csv", Destination:=Range("$A$1"))
         .FieldNames = True
         .RowNumbers = False
         .FillAdjacentFormulas = False
