@@ -731,4 +731,151 @@ Sub inputCSV(path As String, name As String)
     ActiveWorkbook.Connections(name).Delete
 End Sub
 
+'提供文件路径，传入应用和表格对象，打开表格
+'传入内容1.Dim myApp As New Application
+'传入内容2.Dim excelBook As Workbook
+Sub openExcel(fullPath, ByRef myApp As Application, ByRef excelBook As Workbook)
+    
+    myApp.Visible = False
+    
+    'If excelBook.name = "" Then
+    On Error GoTo File_Err_Handle '无此文件
+        Set excelBook = myApp.Workbooks.Open(fullPath)
+    'End If
+    
+    Exit Sub
+File_Err_Handle:
+    myApp.DisplayAlerts = False
+    excelBook.Close savechanges:=False
+    Set excelBook = Nothing
+    myApp.Quit
+    MsgBox ("File not found:  " & fileName)
+    
+End Sub
+
+'传入应用和表格对象，关闭表格
+Sub closeExcel(ByRef myApp As Application, ByRef excelBook As Workbook)
+    On Error GoTo File_Err_Handle
+
+    If myApp.name <> "" Then
+        myApp.DisplayAlerts = False
+        excelBook.Close savechanges:=False
+        Set excelBook = Nothing
+        myApp.Quit
+    Else
+        MsgBox ("Sheets not found.")
+    End If
+    
+    Exit Sub
+    
+File_Err_Handle:
+    MsgBox ("Sheets not found.")
+    
+End Sub
+
+'####################正则领域####################
+'====================常用正则====================
+'（1）单个字符：
+'\\：表示转义字符“\”；
+'\t：表示一个“\t”符号；
+'\n：匹配换行（\n）符号；
+'
+'（2）字符集：
+'[abc]：表示可能是字符a、字符b、字符c中的任意一位；
+'[^abc]：表示不是字符a、b、c中的任意一位；
+'[a-z]：所有的小写字母；
+'[a-zA-Z]：表示所有的字母；
+'[0-9]：表示任意的一位数字；
+'[一-龥]：表示任意的一个汉字；
+'
+'（3）简化的字符集表达式：
+'.：一个点，表示任意的一位字符；
+'\d：等价于“[0-9]”，属于简化写法；
+'\D：等价于“[^0-9]”,属于简化写法；
+'\s：表示任意的空白字符，例如：“\t”“\n”
+'\S：表示任意的非空白字符；
+'\w：等价于“[a-zA-Z_0-9]”，表示由任意的字母、数字、下划线组成；
+'\W：等价于“[^a-zA-Z_0-9]”，表示不是由任意的字母、数字、下划线组成；
+'
+'（4）边界匹配
+'^：正则的开始；
+'$：正则的结束；
+'
+'（5）数量表达
+'正则?：表示此正则可以出现0次或1次，例如\d?，表示出现0次或1次数字；
+'正则+：表示此正则可以出现1次或1次以上；
+'正则*：表示此正则可以出现0次、1次或多次；
+'正则{n}：表示此正则正好出现n次；
+'正则{n,}：表示此正则出现n次以上；
+'正则{n,m}：表示此正则出现n~m次；
+'
+'（6）逻辑运算
+'正则1正则2：正则1判断完成后继续判断正则2；
+'正则1|正则2：正则1或者正则2有一组满足即可；
+'
+'
+'常见正则表达式
+'
+'1）匹配邮编，邮编是6位数字。正则表达式：\d{6}
+'2）匹配手机，手机号是11位数字。正则表达式：\d{11}
+'3）匹配电话，电话是区号-号码组成，区号有3到4位，号码有6到9位。正则表达式：\d{3,4}-\d{6,9}
+'4）匹配日期，日期格式如1992-5-30，明显数字加横线组成。正则表达式：\d{4}-\d{1,2}-\d{1,2}
+
+
+
+'判断字符串是否符合正则表达式，返回符合表达式的数量
+'oriText：目标字符串，patternText：正则表达式
+'isGlobal：True-匹配所有，False-匹配第一个符合项，默认匹配所有
+'isIgnoreCase：True-不区分大小写，False-区分大小写，默认不区分大小写
+Function v_regexCheck(oriText, patternText, Optional isGlobal = True, Optional isIgnoreCase = True)
+    With CreateObject("VBscript.regexp")
+        .Pattern = patternText
+        .Global = isGlobal
+        .IgnoreCase = isIgnoreCase
+        v_regexCheck = .Execute(oriText).Count
+    End With
+End Function
+
+'根据序号提取符合正则表达式的内容，默认提取第一项，如果没有符合的内容，返回""
+'oriText：目标字符串，patternText：正则表达式
+'isGlobal：True-匹配所有，False-匹配第一个符合项，默认匹配所有
+'isIgnoreCase：True-不区分大小写，False-区分大小写，默认不区分大小写
+'indexNum：返回第几项内容，默认第一项（也就是0）
+Function v_regexContent(oriText, patternText, Optional isGlobal = True, Optional isIgnoreCase = True, Optional indexNum = 0)
+    With CreateObject("VBscript.regexp")
+        .Pattern = patternText
+        .Global = isGlobal
+        .IgnoreCase = isIgnoreCase
+        If .Execute(oriText).Count = 0 Then
+            v_regexContent = ""
+        Else
+            v_regexContent = .Execute(oriText)(indexNum)
+        End If
+    End With
+End Function
+
+'替换文本中所有符合正则的字符串内容
+'oriText：目标字符串，patternText：正则表达式
+'replaceText：替换成的字符串，默认去掉，也就是""
+'isGlobal：True-匹配所有，False-匹配第一个符合项，默认匹配所有
+'isIgnoreCase：True-不区分大小写，False-区分大小写，默认不区分大小写
+Function v_regexReplace(oriText, patternText, Optional replaceText = "", Optional isGlobal = True, Optional isIgnoreCase = True)
+    With CreateObject("VBscript.regexp")
+        .Pattern = patternText
+        .Global = isGlobal
+        .IgnoreCase = isIgnoreCase
+        replaceText = CStr(replaceText)
+         v_regexReplace = .Replace(oriText, replaceText)
+     End With
+End Function
+
+
+'#########################正则领域结束##########################
+
+
+
+
+
+
+
 
